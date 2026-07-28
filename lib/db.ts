@@ -1,6 +1,7 @@
 import Database from 'better-sqlite3'
 import path from 'path'
-import { mkdir } from 'fs/promises'
+import { mkdir, access } from 'fs/promises'
+import { constants } from 'fs'
 
 let db: Database.Database | null = null
 
@@ -9,10 +10,19 @@ export async function initializeDatabase() {
 
   try {
     const dbDir = path.join(process.cwd(), '.data')
-    await mkdir(dbDir, { recursive: true })
-
-    const dbPath = path.join(dbDir, 'commutex.db')
-    db = new Database(dbPath)
+    
+    let dbPath = path.join(dbDir, 'commutex.db')
+    
+    // Try to use filesystem database, fall back to memory if not writable
+    try {
+      await mkdir(dbDir, { recursive: true })
+      await access(dbDir, constants.W_OK)
+      db = new Database(dbPath)
+    } catch {
+      // Fall back to in-memory database if filesystem is not writable
+      console.warn('[v0] Using in-memory database - filesystem not writable')
+      db = new Database(':memory:')
+    }
 
     // Enable foreign keys
     db.pragma('foreign_keys = ON')

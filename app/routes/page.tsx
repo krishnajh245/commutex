@@ -73,16 +73,16 @@ export default function RoutesPage() {
                 setShowFromList(!showFromList)
                 setShowToList(false)
               }}
-              className="w-full text-left px-4 py-3 rounded-lg hover:bg-gray-50 transition-colors"
+              className="w-full text-left px-4 py-3 rounded-lg hover:bg-gray-50 transition-colors active:bg-gray-100"
             >
               <div className="flex items-center gap-3">
                 <div className="w-3 h-3 rounded-full bg-green-500 flex-shrink-0"></div>
-                <span className="text-gray-600 text-sm">{from}</span>
+                <span className="text-gray-900 font-medium text-sm">{from}</span>
               </div>
             </button>
 
             {showFromList && (
-              <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-300 rounded-xl shadow-lg z-50 max-h-48 overflow-y-auto">
+              <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-300 rounded-xl shadow-2xl z-[9999] max-h-48 overflow-y-auto">
                 {bengaluruLocations.map((location) => (
                   <button
                     key={location}
@@ -109,16 +109,16 @@ export default function RoutesPage() {
                 setShowToList(!showToList)
                 setShowFromList(false)
               }}
-              className="w-full text-left px-4 py-3 rounded-lg hover:bg-gray-50 transition-colors"
+              className="w-full text-left px-4 py-3 rounded-lg hover:bg-gray-50 transition-colors active:bg-gray-100"
             >
               <div className="flex items-center gap-3">
                 <div className="w-3 h-3 rounded-full bg-red-500 flex-shrink-0"></div>
-                <span className="text-gray-600 text-sm">{to}</span>
+                <span className="text-gray-900 font-medium text-sm">{to}</span>
               </div>
             </button>
 
             {showToList && (
-              <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-300 rounded-xl shadow-lg z-50 max-h-48 overflow-y-auto">
+              <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-300 rounded-xl shadow-2xl z-[9999] max-h-48 overflow-y-auto">
                 {bengaluruLocations.map((location) => (
                   <button
                     key={location}
