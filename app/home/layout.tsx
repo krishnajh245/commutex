@@ -3,15 +3,19 @@
 import { useAuth } from '@/lib/auth-context'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
-import { AuthPage } from '@/components/AuthPage'
+import { BottomNav } from '@/components/BottomNav'
 
-export default function Page() {
+export default function HomeLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   const { user, loading } = useAuth()
   const router = useRouter()
 
   useEffect(() => {
-    if (!loading && user) {
-      router.push('/home')
+    if (!loading && !user) {
+      router.push('/')
     }
   }, [user, loading, router])
 
@@ -27,8 +31,13 @@ export default function Page() {
   }
 
   if (!user) {
-    return <AuthPage />
+    return null
   }
 
-  return null
+  return (
+    <div className="max-w-md mx-auto bg-white relative">
+      {children}
+      <BottomNav />
+    </div>
+  )
 }
